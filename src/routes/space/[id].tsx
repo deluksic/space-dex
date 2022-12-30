@@ -1,15 +1,15 @@
-import { A } from "@solidjs/router"
-import { createResource, createSignal, For, Show, Suspense } from "solid-js"
-import { useLocation, useParams } from "solid-start"
-import { CardComponent, CreateCard, MyCardComponent } from "~/components/Card"
-import { SpaceContext, useSpace } from "~/components/SpaceContext"
-import { UserIDContext, useUserID } from "~/components/UserIDContext"
-import { hasUserCreatedACard, myCards, pendingCards } from "~/db/space"
-import type { Space, UserID } from "~/db/types"
-import { createUserID } from "~/db/user"
-import { autofocus } from "~/utils/autofocus"
-import { createSyncedStore, createUndoRedo } from "~/utils/createSyncedStore"
+import { A } from '@solidjs/router'
+import { CardComponent, CreateCard, MyCardComponent } from '~/components/Card'
+import { For, Show, Suspense, createResource, createSignal } from 'solid-js'
+import { SpaceContext, useSpace } from '~/components/SpaceContext'
+import { UserIDContext, useUserID } from '~/components/UserIDContext'
+import { autofocus } from '~/utils/autofocus'
+import { createSyncedStore, createUndoRedo } from '~/utils/createSyncedStore'
+import { createUserID } from '~/db/user'
+import { hasUserCreatedACard, myCards, pendingCards } from '~/db/space'
+import { useLocation, useParams } from 'solid-start'
 import ui from './[id].module.css'
+import type { Space, UserID } from '~/db/types'
 
 const autofocusFix = autofocus
 
@@ -103,7 +103,7 @@ export default function SpaceComponent() {
 
   const [userID, { refetch: refetchUserID }] = createResource<UserID, string>(
     () => params.id,
-    (docID, { refetching }) => createUserID(docID, !refetching)
+    (docID, { refetching }) => createUserID(docID, !(refetching as boolean))
   )
   const [spaceStore] = createResource(
     () => createSyncedStore<Space>(

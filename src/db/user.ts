@@ -1,11 +1,11 @@
-import { createUUID } from "~/utils/uuid";
-import { UserID } from "./types";
+import { createUUID } from '~/utils/uuid'
+import type { UserID } from './types'
 
 export async function createUserID(docID: string, fromLocalStorage = true) {
   const localStorageKey = `userID-${docID}`
   if (fromLocalStorage) {
     const storedKey = localStorage.getItem(localStorageKey)
-    if (storedKey) {
+    if (storedKey !== null) {
       return storedKey as UserID
     }
   }

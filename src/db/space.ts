@@ -1,9 +1,9 @@
-import { compareDates } from "~/utils/compareDate";
-import { Space, SpaceID, UserID } from "./types";
-import { createUUID } from "../utils/uuid";
-import { hasKey } from "~/utils/hasKey";
-import { v4 as uuid4 } from "uuid";
-import { timestampNow } from "./timestamp";
+import { compareDates } from '~/utils/compareDate'
+import { createUUID } from '../utils/uuid'
+import { hasKey } from '~/utils/hasKey'
+import { timestampNow } from './timestamp'
+import { v4 as uuid4 } from 'uuid'
+import type { Space, SpaceID, UserID } from './types'
 
 export function createSpace(name: string): Space {
   const space = {

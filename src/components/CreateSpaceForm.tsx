@@ -1,11 +1,11 @@
-import { createSignal } from "solid-js"
-import { useNavigate } from "solid-start"
-import { createPassword, createSpace } from "~/db/space"
-import { readFormData } from "~/utils/readFormData"
-import ui from './CreateSpaceForm.module.css'
 import * as Y from 'yjs'
-import { reconcileYMap } from "~/utils/reconcileY"
 import { IndexeddbPersistence } from 'y-indexeddb'
+import { createPassword, createSpace } from '~/db/space'
+import { createSignal } from 'solid-js'
+import { readFormData } from '~/utils/readFormData'
+import { reconcileYMap } from '~/utils/reconcileY'
+import { useNavigate } from 'solid-start'
+import ui from './CreateSpaceForm.module.css'
 
 const SPACE_NAME_PLACEHOLDER = 'Untitled'
 

@@ -1,4 +1,4 @@
-import { CreateSpaceForm } from "~/components/CreateSpaceForm";
+import { CreateSpaceForm } from '~/components/CreateSpaceForm'
 import ui from './index.module.css'
 
 export default function Home() {

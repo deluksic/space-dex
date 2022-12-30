@@ -3,5 +3,5 @@ export default function About() {
     <main>
         Nope
     </main>
-  );
+  )
 }

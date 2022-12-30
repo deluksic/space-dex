@@ -1,19 +1,20 @@
-import { createSignal, Show } from "solid-js";
-import { noCount, yesCount } from "~/db/card";
-import { timestampNow } from "~/db/timestamp";
-import { assertYesNoResponse, Card, CardID } from "~/db/types";
-import { autofocus } from "~/utils/autofocus";
-import { readFormData } from "~/utils/readFormData";
-import { createUUID } from "~/utils/uuid";
-import { useSpace } from "./SpaceContext";
+import { Show } from 'solid-js'
+import { assertYesNoResponse } from '~/db/types'
+import { autofocus } from '~/utils/autofocus'
+import { createUUID } from '~/utils/uuid'
+import { noCount, yesCount } from '~/db/card'
+import { readFormData } from '~/utils/readFormData'
+import { timestampNow } from '~/db/timestamp'
+import { useSpace } from './SpaceContext'
+import { useUserID } from './UserIDContext'
 import ui from './Card.module.css'
-import { useUserID } from "./UserIDContext";
+import type { Card, CardID } from '~/db/types'
 
 const autofocusFix = autofocus
 
 export function CardComponent(card: Card) {
   const userID = useUserID()
-  const [space, setSpace] = useSpace()
+  const [_, setSpace] = useSpace()
   function onRespond(ev: SubmitEvent) {
     const { submitter } = ev
     if (!(submitter instanceof HTMLButtonElement)) {
@@ -36,7 +37,7 @@ export function CardComponent(card: Card) {
 }
 
 export function MyCardComponent(card: Card) {
-  const [space, setSpace] = useSpace()
+  const [_, setSpace] = useSpace()
   function archive() {
     setSpace('cards', card.id, 'archived', true)
   }
@@ -58,7 +59,7 @@ type CreateCardProps = {
 
 export function CreateCard(props: CreateCardProps) {
   const userID = useUserID()
-  const [space, setSpace] = useSpace()
+  const [_, setSpace] = useSpace()
   function createCard(ev: SubmitEvent) {
     const formData = readFormData(ev)
     const { submitter } = ev
@@ -80,7 +81,7 @@ export function CreateCard(props: CreateCardProps) {
       }
       setSpace('cards', card.id, card)
     }
-    props.onSubmit?.()
+    props.onSubmit()
   }
   return (
     <div class={ui.card}>

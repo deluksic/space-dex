@@ -6,6 +6,11 @@
       "tsconfig.json"
     ]
   },
+  "ignorePatterns": [
+    "dist",
+    ".vercel",
+    "node_modules"
+  ],
   "plugins": [
     "@typescript-eslint",
     "sort-imports-es6-autofix"

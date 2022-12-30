@@ -1,10 +1,10 @@
-import { createEffect, createSignal, onCleanup } from "solid-js"
-import { unwrap } from "solid-js/store"
-import { createStore, reconcile } from "solid-js/store"
-import { IndexeddbPersistence, } from "y-indexeddb"
-import { WebrtcProvider } from "y-webrtc"
-import * as Y from "yjs"
-import { JSMap, reconcileYMap } from "./reconcileY"
+import * as Y from 'yjs'
+import { IndexeddbPersistence } from 'y-indexeddb'
+import { WebrtcProvider } from 'y-webrtc'
+import { createEffect, createSignal, onCleanup } from 'solid-js'
+import { createStore, reconcile } from 'solid-js/store'
+import { reconcileYMap } from './reconcileY'
+import type { JSMap } from './reconcileY'
 
 export async function createSyncedStore<T extends JSMap>(
   syncID: string,
@@ -54,11 +54,11 @@ export async function createSyncedStore<T extends JSMap>(
   createEffect(() => {
     if (online()) {
       if (!webrtc.connected) {
-        console.log("Connected!")
+        console.log('Connected!')
         webrtc.connect()
       }
     } else {
-      console.log("Disconnected!")
+      console.log('Disconnected!')
       webrtc.disconnect()
     }
   })
