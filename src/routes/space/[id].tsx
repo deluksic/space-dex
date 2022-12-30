@@ -72,7 +72,10 @@ function Deck(props: { adding: boolean, setAdding: (a: boolean) => void }) {
         {CardComponent}
       </For>
       <Show when={props.adding}>
-        <CreateCard onSubmit={() => props.setAdding(false)} />
+        <CreateCard
+          onSubmit={() => props.setAdding(false)}
+          onCancel={() => props.setAdding(false)}
+        />
       </Show>
     </section>
   )

@@ -55,6 +55,7 @@ export function MyCardComponent(card: Card) {
 
 type CreateCardProps = {
   onSubmit: () => void
+  onCancel: () => void
 }
 
 export function CreateCard(props: CreateCardProps) {
@@ -91,8 +92,11 @@ export function CreateCard(props: CreateCardProps) {
           required
         />
         <section class={ui.response}>
-          <button value='cancel' onClick={props.onSubmit}>Cancel</button>
-          <button type='submit' value='create'>Create</button>
+          <button type='reset' onClick={ev => {
+            ev.preventDefault()
+            props.onCancel()
+          }}>Cancel</button>
+          <button type='submit'>Create</button>
         </section>
       </form>
     </div>
