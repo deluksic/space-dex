@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  place-content: center;
+  place-items: center;
+  padding: var(--space-4);
+  gap: var(--space-4);
+}
+
+.welcome {
+  color: gray;
+  font-size: var(--font-size-large);
+}

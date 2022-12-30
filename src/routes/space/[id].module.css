@@ -1,0 +1,106 @@
+.layout {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 20rem 1fr auto;
+  grid-template-areas:
+    "mycards name"
+    "mycards deck";
+  height: 100%;
+  padding: var(--space-4);
+}
+
+.space-name {
+  line-height: 1;
+  justify-self: center;
+  grid-area: name;
+
+  &>input {
+    font-size: var(--font-size-large);
+    font-weight: bold;
+  }
+}
+
+.controls {
+  justify-self: flex-end;
+  grid-area: name;
+}
+
+.my-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  grid-area: mycards;
+  background-color: var(--color-bg-1);
+  padding: var(--space-4);
+  border-radius: var(--space-4);
+  min-height: 10rem;
+}
+
+.my-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.my-cards-title {
+  position: sticky;
+  top: 0;
+}
+
+.deck {
+  place-self: center;
+  grid-area: deck;
+}
+
+.bottom-controls {
+  grid-area: deck;
+  justify-self: center;
+  align-self: flex-end;
+  margin-bottom: 2rem;
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-end;
+
+  & button {
+    border-radius: 100vmax;
+  }
+}
+
+.add-new-button {
+  width: 4rem;
+  height: 4rem;
+  font-size: var(--font-size-largest);
+  border-radius: 100vmax;
+  font-family: monospace;
+}
+
+@media (max-width: 800px) {
+  .layout {
+    grid-template-rows: auto 70vh max-content;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "name"
+      "deck"
+      "mycards";
+    padding: 0;
+    padding-top: var(--space-4);
+    height: auto;
+  }
+
+  .my-cards-container {
+    border-radius: 0;
+  }
+
+  .my-cards-list {
+    flex: unset;
+    overflow-y: unset;
+  }
+}
+
+.user-id {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}

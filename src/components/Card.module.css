@@ -1,0 +1,34 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--space-4);
+  background-color: var(--color-bg-1);
+  border: 1px solid gray;
+  min-width: 20rem;
+
+  & .response {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    & button {
+      display: block;
+    }
+  }
+
+  & form {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.title-input {
+  font-weight: bold;
+}
+
+.mycard {
+  padding: var(--space-4);
+  border-radius: var(--space-4);
+  background-color: var(--color-bg-1);
+  border: 1px solid gray;
+}

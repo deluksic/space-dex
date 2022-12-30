@@ -1,0 +1,16 @@
+:root {
+  --space-1: 0.125rem;
+  --space-2: 0.25rem;
+  --space-3: 0.5rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+
+  --font-size-small: 0.8rem;
+  --font-size-normal: 1rem;
+  --font-size-large: 1.5rem;
+  --font-size-largest: 2rem;
+
+  --color-bg-1: white;
+  --color-bg-2: #EEE;
+}

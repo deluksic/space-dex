@@ -1,0 +1,46 @@
+{
+  "name": "space-dex",
+  "scripts": {
+    "dev": "solid-start dev",
+    "build": "solid-start build",
+    "start": "solid-start start",
+    "lines": "cloc src --by-file-by-lang --exclude-dir=__generated__ --not-match-f=.*[.]d[.]ts",
+    "lint": "eslint .",
+    "type": "tsc --forceConsistentCasingInFileNames",
+    "type-styles": "tcm src/ --camelCase",
+    "unused": "ts-prune src/ --ignore __generated__ | grep -v '(used in module)'"
+  },
+  "type": "module",
+  "dependencies": {
+    "@solidjs/meta": "^0.28.2",
+    "@solidjs/router": "^0.6.0",
+    "solid-js": "1.6.5",
+    "solid-start": "^0.2.8",
+    "undici": "^5.11.0",
+    "uuid": "^9.0.0",
+    "y-webrtc": "^10.2.3",
+    "y-indexeddb": "^9.0.9",
+    "yjs": "^13.5.43"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.0",
+    "@typescript-eslint/parser": "^5.47.0",
+    "@vitejs/plugin-basic-ssl": "^1.0.1",
+    "cloc": "^2.11.0",
+    "eslint": "^8.30.0",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
+    "postcss-nesting": "^10.2.0",
+    "solid-devtools": "^0.24.4",
+    "solid-start-node": "^0.2.8",
+    "typed-css-modules": "^0.7.2",
+    "ts-prune": "^0.10.3",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "solid-js": "1.6.5",
+      "yjs": "^13.5.43"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+.heading {
+  font-size: var(--font-size-largest);
+}
+
+.form {
+  & input, & button {
+    padding: var(--space-3);
+  }
+}
+
+.info {
+  max-width: 25rem;
+  background-color: var(--color-bg-2);
+  border: 1px solid gray;
+  padding: var(--space-4);
+  border-radius: var(--space-4);
+}
