@@ -3,13 +3,13 @@ import type { UserID } from './types'
 
 export async function createUserID(docID: string, fromLocalStorage = true) {
   const localStorageKey = `userID-${docID}`
+  const storedUserID = localStorage.getItem(localStorageKey) as UserID | null
   if (fromLocalStorage) {
-    const storedKey = localStorage.getItem(localStorageKey)
-    if (storedKey !== null) {
-      return storedKey as UserID
+    if (storedUserID !== null) {
+      return storedUserID
     }
   }
-  const userID = prompt('What is your User ID?', createUUID().slice(-10, -1)) ?? createUUID().slice(-10, -1)
+  const userID = prompt('What is your User ID?', createUUID().slice(-8, -1)) ?? storedUserID ?? createUUID().slice(-8, -1)
   localStorage.setItem(localStorageKey, userID)
   return userID as UserID
 }
