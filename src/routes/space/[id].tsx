@@ -4,12 +4,14 @@ import { useLocation, useParams } from "solid-start"
 import { CardComponent, CreateCard, MyCardComponent } from "~/components/Card"
 import { SpaceContext, useSpace } from "~/components/SpaceContext"
 import { UserIDContext, useUserID } from "~/components/UserIDContext"
-import { myCards, pendingCards } from "~/db/space"
+import { hasUserCreatedACard, myCards, pendingCards } from "~/db/space"
 import type { Space, UserID } from "~/db/types"
 import { createUserID } from "~/db/user"
 import { autofocus } from "~/utils/autofocus"
 import { createSyncedStore, createUndoRedo } from "~/utils/createSyncedStore"
 import ui from './[id].module.css'
+
+const autofocusFix = autofocus
 
 function SpaceName() {
   const [editingSpaceName, setEditingSpaceName] = createSignal(false)
@@ -18,7 +20,7 @@ function SpaceName() {
     <div class={ui.spaceName}>
       <Show when={!editingSpaceName()} fallback={
         <input
-          ref={autofocus}
+          ref={autofocusFix}
           value={space.name}
           onInput={ev => setSpace('name', ev.currentTarget.value)}
           onChange={() => setEditingSpaceName(false)}
@@ -59,7 +61,11 @@ function Deck(props: { adding: boolean, setAdding: (a: boolean) => void }) {
     <section class={ui.deck}>
       <For each={pendingCards(space, userID()!)} fallback={
         <Show when={!props.adding}>
-          <h2>All Caught Up!</h2>
+          <Show when={hasUserCreatedACard(space, userID())} fallback={
+            <h2 class={ui.centralMessage}>Use the + button to create your first card!</h2>
+          }>
+            <h2 class={ui.centralMessage}>All Caught Up!</h2>
+          </Show>
         </Show>
       }>
         {CardComponent}

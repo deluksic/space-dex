@@ -9,6 +9,8 @@ import { useSpace } from "./SpaceContext";
 import ui from './Card.module.css'
 import { useUserID } from "./UserIDContext";
 
+const autofocusFix = autofocus
+
 export function CardComponent(card: Card) {
   const userID = useUserID()
   const [space, setSpace] = useSpace()
@@ -84,7 +86,7 @@ export function CreateCard(props: CreateCardProps) {
     <div class={ui.card}>
       <form onSubmit={createCard}>
         <input
-          ref={autofocus}
+          ref={autofocusFix}
           name='title'
           class={ui.titleInput}
           required

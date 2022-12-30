@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     devtools({ autoname: true }),
     solid({
-      ssr: false,
+      ssr: true,
     }),
     basicSsl(),
   ],

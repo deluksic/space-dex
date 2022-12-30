@@ -22,6 +22,10 @@
   }
 }
 
+.title {
+  font-size: var(--font-size-large);
+}
+
 .title-input {
   font-weight: bold;
 }

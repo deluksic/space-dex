@@ -42,6 +42,15 @@ export function pendingCards(space: Space, userID: UserID) {
     ))
 }
 
+export function hasUserCreatedACard(space: Space, userID: UserID) {
+  for(const card of Object.values(space.cards)) {
+    if(card.createdBy === userID) {
+      return true
+    }
+  }
+  return false
+}
+
 export function createPassword(): string {
   return uuid4().split('-').at(-1)!
 }
