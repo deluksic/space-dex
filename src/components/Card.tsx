@@ -66,21 +66,19 @@ export function CreateCard(props: CreateCardProps) {
     if (!(submitter instanceof HTMLButtonElement)) {
       throw new Error(`Unexpected error, expected submitter to be HTMLButtonElement.`)
     }
-    if (submitter.value === 'create') {
-      const title = formData.get('title')
-      if (typeof title !== 'string') {
-        throw new Error(`Title missing in form data.`)
-      }
-      const card: Card = {
-        id: createUUID<CardID>(),
-        title,
-        createdBy: userID(),
-        createdTimestamp: timestampNow(),
-        responses: {},
-        archived: false,
-      }
-      setSpace('cards', card.id, card)
+    const title = formData.get('title')
+    if (typeof title !== 'string') {
+      throw new Error(`Title missing in form data.`)
     }
+    const card: Card = {
+      id: createUUID<CardID>(),
+      title,
+      createdBy: userID(),
+      createdTimestamp: timestampNow(),
+      responses: {},
+      archived: false,
+    }
+    setSpace('cards', card.id, card)
     props.onSubmit()
   }
   return (
@@ -93,8 +91,8 @@ export function CreateCard(props: CreateCardProps) {
           required
         />
         <section class={ui.response}>
+          <button value='cancel' onClick={props.onSubmit}>Cancel</button>
           <button type='submit' value='create'>Create</button>
-          <button type='submit' value='cancel'>Cancel</button>
         </section>
       </form>
     </div>
