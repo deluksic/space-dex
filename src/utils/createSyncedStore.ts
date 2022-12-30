@@ -46,7 +46,20 @@ export async function createSyncedStore<T extends JSMap>(
   const webrtc = new WebrtcProvider(
     syncID, ydoc,
     // @ts-expect-error
-    { password },
+    {
+      password,
+      peerOpts: {
+        config: {
+          iceServers: [
+            {
+              urls: 'turn:openrelay.metered.ca:80',
+              username: 'openrelayproject',
+              credentials: 'openrelayproject',
+            },
+          ],
+        },
+      },
+    },
   )
   onCleanup(() => {
     webrtc.destroy()
