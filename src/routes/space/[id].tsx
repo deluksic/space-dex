@@ -107,6 +107,12 @@ function CardControls(props: { adding: boolean, setAdding: (a: boolean) => void 
 
 async function invite() {
   const { navigator } = window
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/strict-boolean-expressions
+  if (navigator.share) {
+    console.log(navigator.share({ url: document.URL }))
+    return
+  }
+  // fallback in case browser support is not there
   await navigator.clipboard.writeText(document.URL)
   alert(`Sharing link copied to clipboard!\n\n${document.URL}`)
 }
