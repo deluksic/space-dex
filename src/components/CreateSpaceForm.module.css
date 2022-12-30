@@ -1,6 +1,11 @@
 .heading {
   text-align: center;
   font-size: var(--font-size-largest);
+  line-height: 1;
+}
+
+.sub-heading {
+  color: #444;
 }
 
 .form {

@@ -35,6 +35,7 @@ export function CreateSpaceForm() {
   return (
     <>
       <h2 class={ui.heading}>Name your Space!</h2>
+      <span class={ui.subHeading}>You can also change it later :)</span>
       <form
         class={ui.form}
         onSubmit={onSubmit}
