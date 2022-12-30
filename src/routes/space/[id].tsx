@@ -1,6 +1,7 @@
 import { A } from '@solidjs/router'
 import { CardComponent, CreateCard, MyCardComponent } from '~/components/Card'
 import { For, Show, Suspense, createResource, createSignal } from 'solid-js'
+import { Head, Title, useLocation, useParams } from 'solid-start'
 import { SpaceContext, useSpace } from '~/components/SpaceContext'
 import { Spinner } from '~/components/Spinner'
 import { UserIDContext, useUserID } from '~/components/UserIDContext'
@@ -10,7 +11,6 @@ import { createUserID } from '~/db/user'
 import { hasUserCreatedACard, myCards, pendingCards } from '~/db/space'
 import { isServer } from 'solid-js/web'
 import { projectVersion } from '~/utils/projectVersion'
-import { useLocation, useParams } from 'solid-start'
 import ui from './[id].module.css'
 import type { Space, UserID } from '~/db/types'
 
@@ -109,7 +109,7 @@ async function invite() {
   const { navigator } = window
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/strict-boolean-expressions
   if (navigator.share) {
-    console.log(navigator.share({ url: document.URL }))
+    await navigator.share({ url: document.URL })
     return
   }
   // fallback in case browser support is not there
@@ -173,6 +173,9 @@ export default function SpaceComponent() {
   return (
     <Suspense fallback={SpaceSkeleton}>
       <Show when={userID() && spaceStore()}>
+        <Head>
+          <Title>{spaceStore()?.[0].name} - SpaceDex</Title>
+        </Head>
         <UserIDContext.Provider value={() => userID()!}>
           <SpaceContext.Provider value={spaceStore()!}>
             <main class={ui.layout}>
