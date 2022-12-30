@@ -7,6 +7,7 @@ import { autofocus } from '~/utils/autofocus'
 import { createSyncedStore, createUndoRedo } from '~/utils/createSyncedStore'
 import { createUserID } from '~/db/user'
 import { hasUserCreatedACard, myCards, pendingCards } from '~/db/space'
+import { isServer } from 'solid-js/web'
 import { useLocation, useParams } from 'solid-start'
 import ui from './[id].module.css'
 import type { Space, UserID } from '~/db/types'
@@ -94,6 +95,9 @@ function BottomControls(props: { adding: boolean, setAdding: (a: boolean) => voi
 }
 
 export default function SpaceComponent() {
+  if (isServer) {
+    return null
+  }
   const params = useParams()
   const location = useLocation()
   const password = () => new URLSearchParams(location.hash.split('#')[1]).get('pw')!
