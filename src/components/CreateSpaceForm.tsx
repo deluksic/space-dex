@@ -51,11 +51,10 @@ export function CreateSpaceForm() {
       </form>
       <span class={ui.info}>
         SpaceDex is serverless and relies on P2P network for hosting!
-        Your space is stored on your computer in localStorage and E2E encrypted.
+        Your space is stored on your computer and all communication is end-to-end encrypted.
+        Keep an instance of your space open to host it. It is a little bit like a torrent!
         <br />
         See <a href='https://www.inkandswitch.com/local-first' target="_blank">local-first software</a>.
-        <br />
-        Keep an instance of your space open to host it!
       </span>
     </>
   )
