@@ -50,7 +50,7 @@ export function CreateSpaceForm() {
         <button type='submit'>Create!</button>
       </form>
       <span class={ui.info}>
-        SpaceDex is serverless and relies on P2P network for hosting!
+        SpaceDex relies on P2P network for hosting!
         Your space is stored on your computer and all communication is end-to-end encrypted.
         Keep an instance of your space open to host it. It is a little bit like a torrent!
         <br />

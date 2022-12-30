@@ -8,6 +8,7 @@ import { createSyncedStore, createUndoRedo } from '~/utils/createSyncedStore'
 import { createUserID } from '~/db/user'
 import { hasUserCreatedACard, myCards, pendingCards } from '~/db/space'
 import { isServer } from 'solid-js/web'
+import { projectVersion } from '~/utils/projectVersion'
 import { useLocation, useParams } from 'solid-start'
 import ui from './[id].module.css'
 import type { Space, UserID } from '~/db/types'
@@ -18,19 +19,18 @@ function SpaceName() {
   const [editingSpaceName, setEditingSpaceName] = createSignal(false)
   const [space, setSpace] = useSpace()
   return (
-    <div class={ui.spaceName}>
-      <Show when={!editingSpaceName()} fallback={
-        <input
-          ref={autofocusFix}
-          value={space.name}
-          onInput={ev => setSpace('name', ev.currentTarget.value)}
-          onChange={() => setEditingSpaceName(false)}
-          onBlur={() => setEditingSpaceName(false)}
-        />
-      }>
-        <h1 title='Space name' onDblClick={() => setEditingSpaceName(true)}>{space.name}</h1>
-      </Show>
-    </div>
+    <Show when={!editingSpaceName()} fallback={
+      <input
+        ref={autofocusFix}
+        class={ui.spaceName}
+        value={space.name}
+        onInput={ev => setSpace('name', ev.currentTarget.value)}
+        onChange={() => setEditingSpaceName(false)}
+        onBlur={() => setEditingSpaceName(false)}
+      />
+    }>
+      <h1 class={ui.spaceName} title='Space name' onDblClick={() => setEditingSpaceName(true)}>{space.name}</h1>
+    </Show>
   )
 }
 
@@ -50,7 +50,7 @@ function MyCards(props: { refetchUserID: () => void }) {
           {MyCardComponent}
         </For>
       </div>
-      <span>by <A href='/'>SpaceDex</A></span>
+      <span>Create <A href='/'>New Space</A></span>
     </section>
   )
 }
@@ -78,11 +78,11 @@ function Deck(props: { adding: boolean, setAdding: (a: boolean) => void }) {
   )
 }
 
-function BottomControls(props: { adding: boolean, setAdding: (a: boolean) => void }) {
+function CardControls(props: { adding: boolean, setAdding: (a: boolean) => void }) {
   const [_, __, ymap] = useSpace()
   const [undo, redo, hasUndo, hasRedo] = createUndoRedo(ymap)
   return (
-    <section class={ui.bottomControls}>
+    <section class={ui.cardControls}>
       <button disabled={!hasUndo()} onClick={undo}>Undo</button>
       <button
         class={ui.addNewButton}
@@ -94,7 +94,30 @@ function BottomControls(props: { adding: boolean, setAdding: (a: boolean) => voi
   )
 }
 
+async function invite() {
+  const { navigator } = window
+  await navigator.clipboard.writeText(document.URL)
+  alert(`Sharing link copied to clipboard!\n\n${document.URL}`)
+}
+
+function NetworkControls(props: { online: boolean, setOnline: (value: boolean) => void }) {
+  return (
+    <div class={ui.networkControls}>
+      <button onClick={invite}>Invite</button>
+      {' '}
+      <label>
+        <input
+          type='checkbox'
+          checked={props.online}
+          onChange={ev => props.setOnline(ev.currentTarget.checked)}
+        /> Online
+      </label>
+    </div>
+  )
+}
+
 export default function SpaceComponent() {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (isServer) {
     return null
   }
@@ -122,19 +145,16 @@ export default function SpaceComponent() {
         <UserIDContext.Provider value={() => userID()!}>
           <SpaceContext.Provider value={spaceStore()!}>
             <main class={ui.layout}>
-              <div class={ui.controls}>
-                <label>
-                  <input
-                    type='checkbox'
-                    checked={online()}
-                    onChange={ev => setOnline(ev.currentTarget.checked)}
-                  /> Online
-                </label>
-              </div>
-              <SpaceName />
               <MyCards refetchUserID={refetchUserID} />
-              <Deck adding={adding()} setAdding={setAdding} />
-              <BottomControls adding={adding()} setAdding={setAdding} />
+              <div class={ui.main}>
+                <div class={ui.mainTopBar}>
+                  <SpaceName />
+                  <NetworkControls online={online()} setOnline={setOnline} />
+                </div>
+                <Deck adding={adding()} setAdding={setAdding} />
+                <CardControls adding={adding()} setAdding={setAdding} />
+                <span class={ui.projectVersion}>version {projectVersion()}</span>
+              </div>
             </main>
           </SpaceContext.Provider>
         </UserIDContext.Provider>

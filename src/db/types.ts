@@ -16,6 +16,7 @@ export type Card = {
 }
 
 export type Space = {
+  version: string
   id: SpaceID
   name: string
   createdTimestamp: Timestamp

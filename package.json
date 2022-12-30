@@ -1,5 +1,10 @@
 {
   "name": "space-dex",
+  "version": "0.1.0-alpha",
+  "description": "SpaceDex: a simple yes/no polling tool.",
+  "repository": {
+    "url": "https://github.com/deluksic/space-dex"
+  },
   "scripts": {
     "dev": "solid-start dev",
     "build": "solid-start build",
