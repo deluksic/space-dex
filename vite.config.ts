@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import autoprefixer from 'autoprefixer'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 import devtools from 'solid-devtools/vite'
 import postcssNetsing from 'postcss-nesting'
@@ -19,7 +20,7 @@ export default defineConfig({
       localsConvention: 'camelCaseOnly',
     },
     postcss: {
-      plugins: [postcssNetsing],
+      plugins: [postcssNetsing, autoprefixer],
     },
   },
   server: {

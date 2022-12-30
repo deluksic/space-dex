@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: column;
   padding: var(--space-4);
+  gap: var(--space-3);
   overflow: hidden;
 }
 
@@ -67,7 +68,7 @@
 .network-controls {
   grid-area: network;
   display: flex;
-  gap: var(--space-2);
+  gap: var(--space-3);
   align-items: center;
   justify-self: flex-end
 }
@@ -80,6 +81,7 @@
   align-items: flex-end;
 
   & button {
+    background-color: white;
     border-radius: 100vmax;
   }
 }
@@ -110,6 +112,14 @@
   &::before {
     content: 'version ';
   }
+}
+
+.spinner {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  font-size: 3rem;
+  color: #0004;
 }
 
 @media (max-width: 900px) {

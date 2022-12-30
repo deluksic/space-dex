@@ -2,6 +2,7 @@ import { A } from '@solidjs/router'
 import { CardComponent, CreateCard, MyCardComponent } from '~/components/Card'
 import { For, Show, Suspense, createResource, createSignal } from 'solid-js'
 import { SpaceContext, useSpace } from '~/components/SpaceContext'
+import { Spinner } from '~/components/Spinner'
 import { UserIDContext, useUserID } from '~/components/UserIDContext'
 import { autofocus } from '~/utils/autofocus'
 import { createSyncedStore, createUndoRedo } from '~/utils/createSyncedStore'
@@ -126,6 +127,20 @@ function NetworkControls(props: { online: boolean, setOnline: (value: boolean) =
   )
 }
 
+function SpaceSkeleton() {
+  return (
+    <div class={ui.layout}>
+      <section class={ui.myCardsContainer}>
+      </section>
+      <div class={ui.main}>
+        <div class={ui.spinner}>
+          <Spinner />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function SpaceComponent() {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (isServer) {
@@ -150,7 +165,7 @@ export default function SpaceComponent() {
     )
   )
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={SpaceSkeleton}>
       <Show when={userID() && spaceStore()}>
         <UserIDContext.Provider value={() => userID()!}>
           <SpaceContext.Provider value={spaceStore()!}>
