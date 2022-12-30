@@ -45,19 +45,24 @@ export async function createSyncedStore<T extends JSMap>(
   // WebRTC
   const webrtc = new WebrtcProvider(
     syncID, ydoc,
-    // @ts-expect-error
+    // @ts-expect-error wrong types
     {
       password,
       peerOpts: {
         config: {
           iceServers: [
             {
-              urls: 'turn:openrelay.metered.ca:80',
-              username: 'openrelayproject',
-              credentials: 'openrelayproject',
+              urls: [
+                'stun:relay.metered.ca:80',
+                'turn:relay.metered.ca:80',
+                'turn:relay.metered.ca:443',
+                'turn:relay.metered.ca:443?transport=tcp',
+              ],
+              username: import.meta.env.VITE_TURN_SERVER_USERNAME,
+              credential: import.meta.env.VITE_TURN_SERVER_PASSWORD,
             },
           ],
-        },
+        } satisfies RTCConfiguration,
       },
     },
   )
@@ -81,10 +86,14 @@ export async function createSyncedStore<T extends JSMap>(
     idb.once('synced', () => {
       // idb sync is valid only if map is non-empty
       if ([...ymap.keys()].length > 0) {
+        console.log('idb')
         resolve()
       }
     })
-    webrtc.once('synced', resolve)
+    webrtc.once('synced', () => {
+      console.log('webrtc', [...ymap.keys()])
+      resolve()
+    })
   })
 
   return [store, setStore, ymap] as const
