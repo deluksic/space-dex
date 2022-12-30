@@ -7,6 +7,7 @@
   background-color: var(--color-bg-1);
   border: 1px solid gray;
   min-width: 20rem;
+  box-shadow: var(--shadow-1);
 
   & .response {
     display: grid;

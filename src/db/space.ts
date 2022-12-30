@@ -10,7 +10,7 @@ export function createSpace(name: string): Space {
   const space: Space = {
     version: projectVersion(),
     id: createUUID(),
-    name,
+    name: name.trim(),
     createdTimestamp: timestampNow(),
     cards: {},
   }

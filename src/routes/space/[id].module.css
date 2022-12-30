@@ -10,7 +10,8 @@
   grid-area: main;
   display: flex;
   flex-direction: column;
-  margin: var(--space-4);
+  padding: var(--space-4);
+  overflow: hidden;
 }
 
 .main-top-bar {
@@ -29,7 +30,7 @@
   margin-inline-end: 0;
   border-radius: var(--space-4);
   min-height: 10rem;
-  box-shadow: 0 2px 16px #0002;
+  box-shadow: var(--shadow-1);
 }
 
 .my-cards-list {
@@ -52,6 +53,7 @@
   text-align: center;
   line-height: 1;
   height: 1em;
+  min-width: 0;
 }
 
 .deck {
@@ -104,6 +106,10 @@
   grid-area: main;
   place-self: flex-end;
   color: gray;
+
+  &::before {
+    content: 'version ';
+  }
 }
 
 @media (max-width: 900px) {
@@ -130,5 +136,9 @@
   .my-cards-list {
     flex: unset;
     overflow-y: unset;
+  }
+
+  .project-version::before {
+    content: 'v';
   }
 }

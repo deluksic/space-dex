@@ -24,12 +24,19 @@ function SpaceName() {
         ref={autofocusFix}
         class={ui.spaceName}
         value={space.name}
-        onInput={ev => setSpace('name', ev.currentTarget.value)}
-        onChange={() => setEditingSpaceName(false)}
+        onChange={ev => {
+          setSpace('name', ev.currentTarget.value.trim())
+          setEditingSpaceName(false)
+        }}
         onBlur={() => setEditingSpaceName(false)}
       />
     }>
-      <h1 class={ui.spaceName} title='Space name' onDblClick={() => setEditingSpaceName(true)}>{space.name}</h1>
+      <h1
+        class={ui.spaceName}
+        title='Space name'
+        onClick={() => setEditingSpaceName(true)}>
+        {space.name}
+      </h1>
     </Show>
   )
 }
@@ -156,7 +163,7 @@ export default function SpaceComponent() {
                 </div>
                 <Deck adding={adding()} setAdding={setAdding} />
                 <CardControls adding={adding()} setAdding={setAdding} />
-                <span class={ui.projectVersion}>version {projectVersion()}</span>
+                <span class={ui.projectVersion}>{projectVersion()}</span>
               </div>
             </main>
           </SpaceContext.Provider>
