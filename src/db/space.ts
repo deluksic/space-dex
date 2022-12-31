@@ -1,14 +1,15 @@
 import { compareDates } from '~/utils/compareDate'
 import { createUUID } from '../utils/uuid'
 import { hasKey } from '~/utils/hasKey'
-import { projectVersion } from '~/utils/projectVersion'
 import { timestampNow } from './timestamp'
 import { v4 as uuid4 } from 'uuid'
 import type { Space, UserID } from './types'
 
+export const CURRENT_DOC_VERSION = '0.1.0'
+
 export function createSpace(name: string): Space {
   const space: Space = {
-    version: projectVersion(),
+    version: CURRENT_DOC_VERSION,
     id: createUUID(),
     name: name.trim(),
     createdTimestamp: timestampNow(),

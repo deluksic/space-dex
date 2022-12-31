@@ -1,5 +1,5 @@
-import packageJSON from '../../package.json'
+import { version } from '../../package.json'
 
 export function projectVersion(): string {
-  return packageJSON.version
+  return version
 }
