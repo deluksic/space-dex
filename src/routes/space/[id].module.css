@@ -53,8 +53,15 @@
   font-weight: bold;
   text-align: center;
   line-height: 1;
-  height: 1em;
   min-width: 0;
+
+  &::after {
+    content: '✎';
+    display: inline-block;
+    font-size: var(--font-size-large);
+    margin-inline-start: var(--space-3);
+    transform: scaleX(-1);
+  }
 }
 
 .deck {
@@ -70,7 +77,8 @@
   display: flex;
   gap: var(--space-3);
   align-items: center;
-  justify-self: flex-end
+  justify-self: flex-end;
+  align-self: flex-start;
 }
 
 .card-controls {
