@@ -18,6 +18,7 @@
 .main-top-bar {
   display: flex;
   justify-content: space-between;
+  gap: var(--space-3);
 }
 
 .my-cards-container {
@@ -57,6 +58,7 @@
 
   &::after {
     content: '✎';
+    color: #666;
     display: inline-block;
     font-size: var(--font-size-large);
     margin-inline-start: var(--space-3);
