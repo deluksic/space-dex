@@ -66,6 +66,12 @@
   }
 }
 
+input.space-name {
+  height: 1em;
+  padding: 0;
+  border-width: 0;
+}
+
 .deck {
   flex: 1;
   display: flex;
