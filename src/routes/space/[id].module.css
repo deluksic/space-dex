@@ -58,7 +58,7 @@
 
   &::after {
     content: '✎';
-    color: #666;
+    color: var(--color-fg-2);
     display: inline-block;
     font-size: var(--font-size-large);
     margin-inline-start: var(--space-3);
@@ -117,13 +117,14 @@ input.space-name {
 }
 
 .central-message {
+  color: var(--color-fg-2);
   text-align: center;
 }
 
 .project-version {
   grid-area: main;
   place-self: flex-end;
-  color: gray;
+  color: var(--color-fg-2);
 
   &::before {
     content: 'version ';
