@@ -1,18 +1,20 @@
-import { Show } from 'solid-js'
+import { For, Show } from 'solid-js'
 import { assertYesNoResponse } from '~/db/types'
 import { autofocus } from '~/utils/autofocus'
 import { createUUID } from '~/utils/uuid'
+import { hasUserCreatedACard, pendingCards } from '~/db/space'
 import { noCount, yesCount } from '~/db/card'
 import { readFormData } from '~/utils/readFormData'
 import { timestampNow } from '~/db/timestamp'
 import { useSpace } from './SpaceContext'
 import { useUserID } from './UserIDContext'
 import ui from './Card.module.css'
+import type { Accessor } from 'solid-js'
 import type { Card, CardID } from '~/db/types'
 
 const autofocusFix = autofocus
 
-export function CardComponent(card: Card) {
+export function CardComponent(card: Card, i: Accessor<number>) {
   const userID = useUserID()
   const [_, setSpace] = useSpace()
   function onRespond(ev: SubmitEvent) {
@@ -26,7 +28,7 @@ export function CardComponent(card: Card) {
     }
   }
   return (
-    <div class={ui.card}>
+    <div class={ui.card} style={{ ['--index']: i() }}>
       <h3 class={ui.title}>{card.title}</h3>
       <form class={ui.response} onSubmit={onRespond}>
         <button type='submit' name='response' value='no'>No</button>
@@ -83,7 +85,7 @@ export function CreateCard(props: CreateCardProps) {
     props.onSubmit()
   }
   return (
-    <div class={ui.card}>
+    <div class={ui.createCard}>
       <form onSubmit={createCard}>
         <input
           ref={autofocusFix}
@@ -100,5 +102,31 @@ export function CreateCard(props: CreateCardProps) {
         </section>
       </form>
     </div>
+  )
+}
+
+export function Deck(props: { adding: boolean, setAdding: (a: boolean) => void }) {
+  const userID = useUserID()
+  const [space] = useSpace()
+  return (
+    <section class={ui.deck}>
+      <For each={pendingCards(space, userID()!).slice(0, 4)} fallback={
+        <Show when={!props.adding}>
+          <Show when={hasUserCreatedACard(space, userID())} fallback={
+            <h2 class={ui.centralMessage}>Use the + button to create your first card!</h2>
+          }>
+            <h2 class={ui.centralMessage}>All Caught Up!</h2>
+          </Show>
+        </Show>
+      }>
+        {CardComponent}
+      </For>
+      <Show when={props.adding}>
+        <CreateCard
+          onSubmit={() => props.setAdding(false)}
+          onCancel={() => props.setAdding(false)}
+        />
+      </Show>
+    </section>
   )
 }

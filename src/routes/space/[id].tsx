@@ -1,5 +1,5 @@
 import { A } from '@solidjs/router'
-import { CardComponent, CreateCard, MyCardComponent } from '~/components/Card'
+import { Deck, MyCardComponent } from '~/components/Card'
 import { For, Show, Suspense, createResource, createSignal } from 'solid-js'
 import { Head, Title, useLocation, useParams } from 'solid-start'
 import { SpaceContext, useSpace } from '~/components/SpaceContext'
@@ -8,8 +8,8 @@ import { UserIDContext, useUserID } from '~/components/UserIDContext'
 import { autofocus } from '~/utils/autofocus'
 import { createSyncedStore, createUndoRedo } from '~/utils/createSyncedStore'
 import { createUserID } from '~/db/user'
-import { hasUserCreatedACard, myCards, pendingCards } from '~/db/space'
 import { isServer } from 'solid-js/web'
+import { myCards } from '~/db/space'
 import { projectVersion } from '~/utils/projectVersion'
 import ui from './[id].module.css'
 import type { Space, UserID } from '~/db/types'
@@ -59,32 +59,6 @@ function MyCards(props: { refetchUserID: () => void }) {
         </For>
       </div>
       <span>Create <A href='/'>New Space</A></span>
-    </section>
-  )
-}
-
-function Deck(props: { adding: boolean, setAdding: (a: boolean) => void }) {
-  const userID = useUserID()
-  const [space] = useSpace()
-  return (
-    <section class={ui.deck}>
-      <For each={pendingCards(space, userID()!)} fallback={
-        <Show when={!props.adding}>
-          <Show when={hasUserCreatedACard(space, userID())} fallback={
-            <h2 class={ui.centralMessage}>Use the + button to create your first card!</h2>
-          }>
-            <h2 class={ui.centralMessage}>All Caught Up!</h2>
-          </Show>
-        </Show>
-      }>
-        {CardComponent}
-      </For>
-      <Show when={props.adding}>
-        <CreateCard
-          onSubmit={() => props.setAdding(false)}
-          onCancel={() => props.setAdding(false)}
-        />
-      </Show>
     </section>
   )
 }
@@ -150,6 +124,7 @@ function SpaceSkeleton() {
 export default function SpaceComponent() {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (isServer) {
+    // not possible to server-render this component
     return null
   }
   const params = useParams()
