@@ -3,8 +3,8 @@ import type { ParentProps } from 'solid-js'
 
 export function ShowExit(props: ParentProps<{ when: boolean, exitingClass?: string }>) {
   const exitingClass = () => props.exitingClass ?? 'exiting'
-  const element = children(() => props.children)
   const [shouldRender, setShouldRender] = createSignal(props.when)
+  const element = children(() => shouldRender() ? props.children : undefined)
   function onAnimationEnd() {
     setShouldRender(props.when)
   }
