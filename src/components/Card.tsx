@@ -1,4 +1,5 @@
 import { For, Show } from 'solid-js'
+import { ShowExit } from './ShowExit'
 import { assertYesNoResponse } from '~/db/types'
 import { autofocus } from '~/utils/autofocus'
 import { createUUID } from '~/utils/uuid'
@@ -85,23 +86,21 @@ export function CreateCard(props: CreateCardProps) {
     props.onSubmit()
   }
   return (
-    <div class={ui.createCard}>
-      <form onSubmit={createCard}>
-        <input
-          ref={autofocusFix}
-          name='title'
-          class={ui.titleInput}
-          required
-        />
-        <section class={ui.response}>
-          <button type='reset' onClick={ev => {
-            ev.preventDefault()
-            props.onCancel()
-          }}>Cancel</button>
-          <button type='submit'>Create</button>
-        </section>
-      </form>
-    </div>
+    <form class={ui.createCard} onSubmit={createCard}>
+      <input
+        ref={autofocusFix}
+        name='title'
+        class={ui.titleInput}
+        required
+      />
+      <section class={ui.response}>
+        <button type='reset' onClick={ev => {
+          ev.preventDefault()
+          props.onCancel()
+        }}>Cancel</button>
+        <button type='submit'>Create</button>
+      </section>
+    </form>
   )
 }
 
@@ -121,12 +120,12 @@ export function Deck(props: { adding: boolean, setAdding: (a: boolean) => void }
       }>
         {CardComponent}
       </For>
-      <Show when={props.adding}>
+      <ShowExit when={props.adding} exitingClass={ui.exiting}>
         <CreateCard
           onSubmit={() => props.setAdding(false)}
           onCancel={() => props.setAdding(false)}
         />
-      </Show>
+      </ShowExit>
     </section>
   )
 }
