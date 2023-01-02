@@ -58,6 +58,11 @@
   }
 }
 
+.central-message {
+  color: var(--color-fg-2);
+  text-align: center;
+}
+
 @keyframes fly-in {
   from {
     opacity: 0;

@@ -108,11 +108,6 @@ input.space-name {
   gap: var(--space-3);
 }
 
-.central-message {
-  color: var(--color-fg-2);
-  text-align: center;
-}
-
 .project-version {
   grid-area: main;
   place-self: flex-end;
